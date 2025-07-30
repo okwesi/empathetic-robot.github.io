@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathetic Robot AI Architecture</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Mermaid JS CDN -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+        // Initialize Mermaid after a small delay to ensure DOM is fully ready
+        // This can sometimes help in specific rendering environments.
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                mermaid.initialize({ startOnLoad: true });
+            }, 100); // Small delay of 100ms
+        });
+    </script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        /* Custom styling for the mermaid container if needed */
+        .mermaid {
+            background-color: #ffffff; /* White background for the diagram */
+            padding: 2rem;
+            border-radius: 1rem; /* Rounded corners for the diagram container */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            overflow-x: auto; /* Allow horizontal scrolling if diagram is too wide */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="max-w-full w-full lg:w-4/5 xl:w-3/4">
+        <h1 class="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-8 rounded-lg p-4 bg-white shadow-md">
+            Empathetic Robot AI Architecture
+        </h1>
+        <div class="mermaid">
+            graph TD
+                subgraph "User Interaction"
+                    A[User Speaking] --> B(Microphone Input)
+                end
+
+                subgraph "Perceptive Front-End (Speech Processing)"
+                    B --> C["Audio Pre-processing & VAD\n(Input: Raw Audio, Output: Cleaned Audio)"]
+                    C --> D["Speech Processing Model\n(Model: Custom/Pre-trained)\n(Input: Cleaned Audio, Output: Processed Audio Features)"]
+                    D --> E["Speech-to-Text (ASR)\n(Model: Whisper-Large-v3)\n(Input: Processed Audio Features, Output: 'I'm feeling really stressed today.')"]
+                    D --> F["Speech Emotion Recognition (SER)\n(Model: Wav2Vec2-Emotion)\n(Input: Processed Audio Features, Output: {emotion: 'sadness', confidence: 0.85})"]
+                    D --> G["Age/Gender Recognition\n(Model: Custom/Pre-trained)\n(Input: Processed Audio Features, Output: {age_range: '25-35', gender: 'female'})"]
+                    E --> H["Contextualization Layer\n(Input: Text, Emotion, Age/Gender)\n(Output: {text: 'I'm feeling stressed today.', emotion: 'sadness', age_range: '25-35'})"]
+                    F --> H
+                    G --> H
+                end
+
+                subgraph "Intelligent Core (Reasoning)"
+                    H --> I["Large Language Model (LLM)\n(Model: Gemma-7b-it / Mistral-7B-Instruct)\n(Input: Contextualized User Input + Conversation Log + Graph DB History)\n(Output: 'I'm sorry to hear that you're feeling stressed. Would you like to talk about it, or perhaps I can help you with a calming exercise?')"]
+                    J["Ongoing Conversation Log\nInput: Previous Turns\nOutput: Current Context"] --> I
+                    K["Graph DB History\nInput: Long-term User Data\nOutput: Personalized Insights"] --> I
+                    I --> L["Response Actuation Logic\n(Input: LLM Text Response, Output: Desired Tone, Facial Expression, Gesture)"]
+                end
+
+                subgraph "Expressive Back-End (Robot Output)"
+                    L --> M["TTS Model\n(Model: Bark / MMS-TTS)\n(Input: LLM Text Response + Desired Tone, Output: Synthesized Audio)"]
+                    M --> N[Robot Speaker Output]
+                    L --> O["Robot Facial Display / Gestures\n(Input: Desired Facial Expression, Gesture, Output: Visual/Physical Action)"]
+                end
+
+                subgraph "Feedback & Learning Loop"
+                    H --> P["Feedback Loop Logger\nInput: All Data Points\nOutput: Logged Interaction"]
+                    I --> P
+                    L --> P
+                    N --> P
+                    O --> P
+                    P --> J
+                    J --> Q["Graph Database\nInput: Logged Interactions\nOutput: Structured Dialogue History"]
+                end
+
+                %% Styling
+                style A fill:#DDEBF7,stroke:#336699,stroke-width:2px
+                style B fill:#DDEBF7,stroke:#336699,stroke-width:2px
+                style C fill:#EBF7DE,stroke:#669933,stroke-width:2px
+                style D fill:#EBF7DE,stroke:#669933,stroke-width:2px
+                style E fill:#EBF7DE,stroke:#669933,stroke-width:2px
+                style F fill:#EBF7DE,stroke:#669933,stroke-width:2px
+                style G fill:#EBF7DE,stroke:#669933,stroke-width:2px
+                style H fill:#F7DEEB,stroke:#993366,stroke-width:2px
+                style I fill:#F7DEEB,stroke:#993366,stroke-width:2px
+                style J fill:#F7DEEB,stroke:#993366,stroke-width:2px
+                style K fill:#F7DEEB,stroke:#993366,stroke-width:2px
+                style L fill:#DEEBF7,stroke:#336699,stroke-width:2px
+                style M fill:#DEEBF7,stroke:#336699,stroke-width:2px
+                style N fill:#DDEBF7,stroke:#336699,stroke-width:2px
+                style O fill:#DDEBF7,stroke:#336699,stroke-width:2px
+                style P fill:#F7EBF7,stroke:#CC66CC,stroke-width:2px
+                style Q fill:#F7EBF7,stroke:#CC66CC,stroke-width:2px
+        </div>
+    </div>
+</body>
+</html>
