@@ -31,6 +31,22 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
             overflow-x: auto; /* Allow horizontal scrolling if diagram is too wide */
         }
+        /* Hover effect for Mermaid nodes and links */
+        .mermaid .node:hover rect,
+        .mermaid .node:hover polygon,
+        .mermaid .edgePath:hover path {
+            stroke-width: 4px;
+            stroke: #4f46e5 !important; /* Indigo for hover stroke */
+            transition: stroke-width 0.2s ease-in-out;
+        }
+        .mermaid .node:hover rect {
+             fill: #eef2ff !important; /* Lighter fill color on hover */
+             cursor: pointer;
+        }
+        .mermaid .node:hover text {
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
