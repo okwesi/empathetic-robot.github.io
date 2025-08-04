@@ -52,12 +52,13 @@
 <body class="flex items-center justify-center min-h-screen p-4">
     <div class="max-w-full w-full lg:w-4/5 xl:w-3/4">
         <h1 class="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-8 rounded-lg p-4 bg-white shadow-md">
-            Empathetic Robot AI Architecture
+            Social Robot AI Architecture
         </h1>
         <div class="mermaid">
             graph TD
                 subgraph "User Interaction"
                     A[User Speaking] --> B(Microphone Input)
+                    W[User Wearing ECG Sensor] --> X(ECG Sensor Input)
                 end
 
                 subgraph "Perceptive Front-End (Speech Processing)"
@@ -66,10 +67,19 @@
                     D --> E["Speech-to-Text (ASR)\n(Model: Whisper-Large-v3)\n(Input: Processed Audio Features, Output: 'I'm feeling really stressed today.')"]
                     D --> F["Speech Emotion Recognition (SER)\n(Model: Wav2Vec2-Emotion)\n(Input: Processed Audio Features, Output: {emotion: 'sadness', confidence: 0.85})"]
                     D --> G["Age/Gender Recognition\n(Model: Custom/Pre-trained)\n(Input: Processed Audio Features, Output: {age_range: '25-35', gender: 'female'})"]
-                    E --> H["Contextualization Layer\n(Input: Text, Emotion, Age/Gender)\n(Output: {text: 'I'm feeling stressed today.', emotion: 'sadness', age_range: '25-35'})"]
+                    E --> H
                     F --> H
                     G --> H
                 end
+
+                subgraph "Physiological Front-End (Emotion Sensing)"
+                    X --> Y["Physiological Signal Processing\n(Input: ECG Data (Heart Rate, HRV), Output: Processed Features)"]
+                    Y --> Z["Physiological Emotion Prediction\n(Model: Custom/Pre-trained)\n(Input: Processed Features, Output: {emotion: 'calm', confidence: 0.92})"]
+                    Z --> H
+                    Z --> P
+                end
+
+                H["Contextualization Layer\n(Input: Text, Emotion, Age/Gender, Physiological Emotion)\n(Output: {text: 'I'm feeling stressed today.', speech_emotion: 'sadness', physio_emotion: 'anxiety', age_range: '25-35'})"]
 
                 subgraph "Intelligent Core (Reasoning)"
                     H --> I["Large Language Model (LLM)\n(Model: Gemma-7b-it / Mistral-7B-Instruct)\n(Input: Contextualized User Input + Conversation Log + Graph DB History)\n(Output: 'I'm sorry to hear that you're feeling stressed. Would you like to talk about it, or perhaps I can help you with a calming exercise?')"]
@@ -85,7 +95,7 @@
                 end
 
                 subgraph "Feedback & Learning Loop"
-                    H --> P["Feedback Loop Logger\nInput: All Data Points\nOutput: Logged Interaction"]
+                    H --> P["Feedback Loop Logger\nInput: All Data Points (incl. Physiological)\nOutput: Logged Interaction"]
                     I --> P
                     L --> P
                     N --> P
@@ -112,6 +122,12 @@
                 style O fill:#DDEBF7,stroke:#336699,stroke-width:2px
                 style P fill:#F7EBF7,stroke:#CC66CC,stroke-width:2px
                 style Q fill:#F7EBF7,stroke:#CC66CC,stroke-width:2px
+                
+                %% New styling for physiological nodes
+                style W fill:#F8E7D3,stroke:#A16207,stroke-width:2px
+                style X fill:#F8E7D3,stroke:#A16207,stroke-width:2px
+                style Y fill:#F8E7D3,stroke:#A16207,stroke-width:2px
+                style Z fill:#F8E7D3,stroke:#A16207,stroke-width:2px
         </div>
     </div>
 </body>
